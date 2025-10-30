@@ -1,4 +1,7 @@
 using api.Data;
+using api.Interfaces;
+using api.Repositories;
+using api.Services;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
@@ -6,13 +9,15 @@ using Serilog.Sinks.Elasticsearch;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddWindowsService();
-builder.WebHost.ConfigureKestrel(options => options.ListenLocalhost(5000));
+// builder.Services.AddWindowsService();
+// builder.WebHost.ConfigureKestrel(options => options.ListenLocalhost(5000));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
 builder.Services.AddDbContext<DBContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddStackExchangeRedisCache(options => options.Configuration = builder.Configuration.GetConnectionString("Redis"));
 Log.Logger = new LoggerConfiguration()
@@ -39,8 +44,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseDefaultFiles();
 app.UseAuthorization();
-app.UseStaticFiles();
-app.MapFallbackToFile("index.html");
+// app.UseStaticFiles();
+// app.MapFallbackToFile("index.html");
 app.MapControllers();
 
 app.Run();
