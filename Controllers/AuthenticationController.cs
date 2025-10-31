@@ -1,4 +1,5 @@
-using api.DTOs;
+using api.DTOs.Requests;
+using api.DTOs.Responses;
 using api.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,31 +28,39 @@ public class AuthenticationController(ILogger<AuthenticationController> logger, 
     /// Handles user sign-in requests.
     /// Validates the model, attempts login and returns appropriate result.
     /// </summary>
-    /// <param name="user">User data transfer object containing login details</param>
+    /// <param name="credentials">User data transfer object containing login details</param>
     /// <returns>HTTP response with sign-in result</returns>
     /// <exception cref="InvalidDataException">Thrown when input data validation fails.</exception>
-    [HttpPost]
-    [Route("/signin")]
-    public IActionResult SignIn(UserDTO user)
+    [HttpPost("signin")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public IActionResult SignIn([FromForm] SignInRequestDTO credentials)
     {
         try
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogDebug("{Controller} : {Method} : {DTO}", nameof(AuthenticationController), nameof(SignIn), user);
-                throw new InvalidDataException("Invalid Input Data");
+                _logger.LogWarning("{Controller} : {Method} - Invalid model state", nameof(AuthenticationController), nameof(SignIn));
+                return BadRequest(ModelState);
+            }
+            UserResponseDTO response = _service.Login(credentials);
+            if (response != null)
+            {
+                _logger.LogInformation("{Controller} : {Method} - User {Number} logged in successfully", nameof(AuthenticationController), nameof(SignIn), credentials.Number);
+                return Accepted(new { message = "Login successful", response });
             }
             else
             {
-                bool userExist = _service.Login(user);
-                _logger.LogInformation($"{nameof(AuthenticationController)} : {nameof(SignIn)}");
-                return Ok(user);
+                _logger.LogWarning("{Controller} : {Method} - Failed login attempt for {Number}", nameof(AuthenticationController), nameof(SignIn), credentials.Number);
+                return Unauthorized(new { message = "Invalid number or password"});
             }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            _logger.LogError(e, $"{nameof(AuthenticationController)} : {nameof(SignIn)}");
-            return StatusCode(StatusCodes.Status500InternalServerError);
+            _logger.LogError(ex, "{Controller} : {Method} - Error during sign-in for {Number}", nameof(AuthenticationController), nameof(SignIn), credentials.Number);
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = "An error occurred during sign-in" });
         }
     }
 }

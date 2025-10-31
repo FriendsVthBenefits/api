@@ -1,4 +1,5 @@
 using api.DTOs;
+using api.Models;
 
 namespace api.Interfaces;
 
@@ -12,5 +13,5 @@ public interface IAuthenticationRepository
     /// </summary>
     /// <param name="user">User data transfer object containing login details.</param>
     /// <returns>True if the user exists; otherwise, false.</returns>
-    bool UserExist(UserDTO user);
+    User? UserExist(UserDTO user);
 }

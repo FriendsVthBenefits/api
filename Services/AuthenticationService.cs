@@ -30,7 +30,7 @@ public class AuthenticationService(ILogger<AuthenticationService> logger, IAuthe
     {
         try
         {
-            bool userExist = _repository.UserExist(user);
+            User user = _repository.UserExist(user);
             _logger.LogInformation($"{nameof(AuthenticationService)} : {nameof(Login)}");
             return userExist;
         }

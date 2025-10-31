@@ -1,4 +1,5 @@
-using api.DTOs;
+using api.DTOs.Requests;
+using api.DTOs.Responses;
 
 namespace api.Interfaces;
 
@@ -12,5 +13,5 @@ public interface IAuthenticationService
     /// </summary>
     /// <param name="user">User data transfer object containing login details.</param>
     /// <returns>True if login is successful; otherwise, false.</returns>
-    bool Login(UserDTO user);
+    UserResponseDTO Login(SignInRequestDTO credentials);
 }

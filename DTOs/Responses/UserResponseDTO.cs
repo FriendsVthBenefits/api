@@ -1,21 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace api.Models;
+namespace api.DTOs.Responses;
 
 /// <summary>
-/// Represents a User entity in the application. Stores user profile information, authentication credentials, activity state, and timestamps for auditing.
+/// Data Transfer Object containing user profile information for API responses.
 /// </summary>
-[Table("User")]
-public partial class User
+public class UserResponseDTO
 {
     /// <summary>
     /// Primary key, uniquely identifies each user record.
     /// </summary>
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
-
+    
     /// <summary>
     /// The user's full name.
     /// </summary>
@@ -32,19 +26,14 @@ public partial class User
     public string Mail { get; set; } = null!;
 
     /// <summary>
-    /// Hashed password for authentication.
-    /// </summary>
-    public string Password { get; set; } = null!;
-
-    /// <summary>
     /// Gender of the user (use encoded values, e.g., 1=Male, 0=Female).
     /// </summary>
-    public decimal Gender { get; set; }
+    public byte Gender { get; set; }
 
     /// <summary>
     /// Date of birth (stored as decimal timestamp).
     /// </summary>
-    public decimal Dob { get; set; }
+    public DateTime Dob { get; set; }
 
     /// <summary>
     /// Location or address of the user.
@@ -52,9 +41,9 @@ public partial class User
     public string Location { get; set; } = null!;
 
     /// <summary>
-    /// Profile picture stored as byte array.
+    /// URL to retrieve the user's profile picture.
     /// </summary>
-    public byte[] Pic { get; set; } = null!;
+    public string? ProfilePictureUrl { get; set; }
 
     /// <summary>
     /// Short biography or personal description.
@@ -69,25 +58,15 @@ public partial class User
     /// <summary>
     /// Timestamp of last login activity.
     /// </summary>
-    public decimal? LastLogin { get; set; }
+    public DateTime LastLogin { get; set; }
 
     /// <summary>
     /// Timestamp when the user record was created.
     /// </summary>
-    public decimal? CreatedAt { get; set; }
-
-    /// <summary>
-    /// Timestamp of the most recent update to the user record.
-    /// </summary>
-    public decimal? UpdatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     /// <summary>
     /// Indicates if the user account is active (1=active, 0=inactive).
     /// </summary>
-    public decimal? IsActive { get; set; }
-
-    /// <summary>
-    /// Role value for the user (e.g., 1=User, 0=Admin).
-    /// </summary>
-    public decimal? Role { get; set; }
+    public bool IsActive { get; set; }
 }

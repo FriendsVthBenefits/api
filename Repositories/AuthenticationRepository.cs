@@ -1,6 +1,7 @@
 using api.Interfaces;
 using api.Data;
 using api.DTOs;
+using api.Models;
 
 namespace api.Repositories;
 
@@ -24,15 +25,16 @@ public class AuthenticationRepository(ILogger<AuthenticationRepository> logger, 
     /// <summary>
     /// Checks if a user exists with the specified credentials.
     /// </summary>
-    /// <param name="user">User data transfer object containing login credentials.</param>
+    /// <param name="userDTO">User data transfer object containing login credentials.</param>
     /// <returns>True if user exists; otherwise, false.</returns>
     /// <exception cref="Exception">Throws exception if any error occurs during data access.</exception>
-    public bool UserExist(UserDTO user)
+    public User? UserExist(UserDTO userDTO)
     {
         try
         {
+            User user  = _context.Users.FirstOrDefault(u => u.Number == userDTO.Number && u.Password == userDTO.Password);
             _logger.LogInformation($"{nameof(AuthenticationRepository)} : {nameof(UserExist)}");
-            return false;
+            return user;
         }
         catch (Exception e)
         {
