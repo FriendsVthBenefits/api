@@ -24,15 +24,15 @@ public partial class User
     /// <summary>
     /// The user's mobile number (intended for Indian numbers with +91 code).
     /// </summary>
-    public long Number { get; set; }
+    public int Number { get; set; }
 
     /// <summary>
-    /// The user's email address (used for login and communication).
+    /// The user's email address (used for communication).
     /// </summary>
     public string Mail { get; set; } = null!;
 
     /// <summary>
-    /// Hashed password for authentication.
+    /// Password for authentication.
     /// </summary>
     public string Password { get; set; } = null!;
 

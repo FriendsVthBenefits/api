@@ -1,7 +1,8 @@
 using api.Interfaces;
 using api.Data;
-using api.DTOs;
 using api.Models;
+using api.DTOs.Requests;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Repositories;
 
@@ -25,20 +26,20 @@ public class AuthenticationRepository(ILogger<AuthenticationRepository> logger, 
     /// <summary>
     /// Checks if a user exists with the specified credentials.
     /// </summary>
-    /// <param name="userDTO">User data transfer object containing login credentials.</param>
-    /// <returns>True if user exists; otherwise, false.</returns>
+    /// <param name="credentials">Login credentials.</param>
+    /// <returns>User entity if found; null otherwise.</returns>
     /// <exception cref="Exception">Throws exception if any error occurs during data access.</exception>
-    public User? UserExist(UserDTO userDTO)
+    public async Task<User?> UserExistAsync(SignInRequestDTO credentials)
     {
         try
         {
-            User user  = _context.Users.FirstOrDefault(u => u.Number == userDTO.Number && u.Password == userDTO.Password);
-            _logger.LogInformation($"{nameof(AuthenticationRepository)} : {nameof(UserExist)}");
+            User? user  = await _context.Users.FirstOrDefaultAsync(u => u.Number == credentials.Number && u.Password == credentials.Password);
+            _logger.LogInformation($"{nameof(AuthenticationRepository)} : {nameof(UserExistAsync)}");
             return user;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"{nameof(AuthenticationRepository)} : {nameof(UserExist)}");
+            _logger.LogError(e, $"{nameof(AuthenticationRepository)} : {nameof(UserExistAsync)}");
             throw;
         }
     }

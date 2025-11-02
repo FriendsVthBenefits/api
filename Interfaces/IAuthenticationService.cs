@@ -11,7 +11,7 @@ public interface IAuthenticationService
     /// <summary>
     /// Attempts to log in a user with the provided credentials.
     /// </summary>
-    /// <param name="user">User data transfer object containing login details.</param>
-    /// <returns>True if login is successful; otherwise, false.</returns>
-    UserResponseDTO Login(SignInRequestDTO credentials);
+    /// <param name="credentials">Login credentials.</param>
+    /// <returns>User profile if successful; null if failed.</returns>
+    Task<UserResponseDTO?> LoginAsync(SignInRequestDTO credentials);
 }

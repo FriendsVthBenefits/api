@@ -11,9 +11,9 @@ public class UserResponseDTO
     public int Id { get; set; }
     
     /// <summary>
-    /// The user's full name.
+    /// The user's name.
     /// </summary>
-    public string Name { get; set; } = null!;
+    public required string Name { get; set; }
 
     /// <summary>
     /// The user's mobile number (intended for Indian numbers with +91 code).
@@ -21,7 +21,7 @@ public class UserResponseDTO
     public long Number { get; set; }
 
     /// <summary>
-    /// The user's email address (used for login and communication).
+    /// The user's email address (used for communication).
     /// </summary>
     public string Mail { get; set; } = null!;
 
@@ -68,5 +68,5 @@ public class UserResponseDTO
     /// <summary>
     /// Indicates if the user account is active (1=active, 0=inactive).
     /// </summary>
-    public bool IsActive { get; set; }
+    public byte IsActive { get; set; }
 }

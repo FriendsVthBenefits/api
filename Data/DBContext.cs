@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 namespace api.Data;
 
 /// <summary>
-/// The primary Entity Framework Core database context for the application.
 /// Responsible for managing entity sets, configuring the connection to the SQLite database,
 /// and mapping entity properties to database columns with constraints and defaults.
 /// </summary>
@@ -32,13 +31,6 @@ public partial class DBContext : DbContext
     /// Provides access to user entities for querying and CRUD operations.
     /// </summary>
     public virtual DbSet<User> Users { get; set; }
-
-    /// <summary>
-    /// Configures the database connection and other options for this context instance.
-    /// </summary>
-    /// <param name="optionsBuilder">Provides settings for context such as connection string management.</param>
-    #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite("Data Source=api.db");
 
     /// <summary>
     /// Configures entity mappings, table names, properties, indexes, and default values.

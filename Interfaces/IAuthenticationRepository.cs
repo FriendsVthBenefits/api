@@ -1,4 +1,4 @@
-using api.DTOs;
+using api.DTOs.Requests;
 using api.Models;
 
 namespace api.Interfaces;
@@ -11,7 +11,7 @@ public interface IAuthenticationRepository
     /// <summary>
     /// Checks if a user exists based on provided credentials.
     /// </summary>
-    /// <param name="user">User data transfer object containing login details.</param>
-    /// <returns>True if the user exists; otherwise, false.</returns>
-    User? UserExist(UserDTO user);
+    /// <param name="credentials">Login credentials.</param>
+    /// <returns>User entity if found; null otherwise.</returns>
+    Task<User?> UserExistAsync(SignInRequestDTO credentials);
 }
