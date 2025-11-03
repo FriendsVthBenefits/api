@@ -24,7 +24,7 @@ public partial class User
     /// <summary>
     /// The user's mobile number (intended for Indian numbers with +91 code).
     /// </summary>
-    public int Number { get; set; }
+    public long Number { get; set; }
 
     /// <summary>
     /// The user's email address (used for communication).
