@@ -155,7 +155,7 @@ tramp
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
+# *.sln
 *.sw?
 *.user
 *.userosscache
@@ -202,7 +202,7 @@ id_dsa
 # Database files
 *.sqlite
 *.sqlite3
-*.db
+# *.db
 
 # === Archive Files ===
 *.zip
