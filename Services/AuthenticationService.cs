@@ -13,6 +13,7 @@ namespace api.Services;
 /// <param name="repository">Repository to validate user existence.</param>
 public class AuthenticationService(ILogger<AuthenticationService> logger, IAuthenticationRepository repository) : IAuthenticationService
 {
+    #region Fields
     /// <summary>
     /// Logger instance for logging service operations.
     /// </summary>
@@ -22,7 +23,9 @@ public class AuthenticationService(ILogger<AuthenticationService> logger, IAuthe
     /// Repository instance for accessing authentication data.
     /// </summary>
     private readonly IAuthenticationRepository _repository = repository;
-
+    #endregion Fields
+    
+    #region Methods
     /// <summary>
     /// Attempts to log in a user by validating credentials.
     /// </summary>
@@ -51,4 +54,5 @@ public class AuthenticationService(ILogger<AuthenticationService> logger, IAuthe
             throw;
         }
     }
+    #endregion Methods
 }

@@ -13,16 +13,19 @@ namespace api.Repositories;
 /// <param name="context">Database context for data access.</param>
 public class AuthenticationRepository(ILogger<AuthenticationRepository> logger, DBContext context) : IAuthenticationRepository
 {
+    #region Fields
     /// <summary>
     /// Logger instance for logging repository operations and errors.
     /// </summary>
     private readonly ILogger<AuthenticationRepository> _logger = logger;
-    
+
     /// <summary>
     /// Database context instance for accessing data storage.
     /// </summary>
     private readonly DBContext _context = context;
-
+    #endregion Fields
+    
+    #region Methods
     /// <summary>
     /// Checks if a user exists with the specified credentials.
     /// </summary>
@@ -33,7 +36,7 @@ public class AuthenticationRepository(ILogger<AuthenticationRepository> logger, 
     {
         try
         {
-            User? user  = await _context.Users.FirstOrDefaultAsync(u => u.Number == credentials.Number && u.Password == credentials.Password);
+            User? user = await _context.Users.FirstOrDefaultAsync(u => u.Number == credentials.Number && u.Password == credentials.Password);
             _logger.LogInformation($"{nameof(AuthenticationRepository)} : {nameof(UserExistAsync)}");
             return user;
         }
@@ -43,4 +46,5 @@ public class AuthenticationRepository(ILogger<AuthenticationRepository> logger, 
             throw;
         }
     }
+    #endregion Methods
 }

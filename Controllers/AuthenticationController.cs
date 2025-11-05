@@ -14,6 +14,7 @@ namespace api.Controllers;
 [Route("[controller]")]
 public class AuthenticationController(ILogger<AuthenticationController> logger, IAuthenticationService service) : ControllerBase
 {
+    #region Fields
     /// <summary>
     /// Logger instance for recording logs through the controller lifecycle.
     /// </summary>
@@ -23,7 +24,9 @@ public class AuthenticationController(ILogger<AuthenticationController> logger, 
     /// Instance of the authentication service for business signin related to authentication.
     /// </summary>
     private readonly IAuthenticationService _service = service;
-
+    #endregion Fields
+    
+    #region Actions
     /// <summary>
     /// Handles user sign-in requests.
     /// Validates the model, attempts sigmim and returns appropriate result.
@@ -55,12 +58,13 @@ public class AuthenticationController(ILogger<AuthenticationController> logger, 
             }
 
             _logger.LogWarning("{Controller} : {Method} - Failed login attempt for {Number}", nameof(AuthenticationController), nameof(SignIn), credentials.Number);
-            return Unauthorized(new { message = "Invalid number or password"});
+            return Unauthorized(new { message = "Invalid number or password" });
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "{Controller} : {Method} - Error during sign-in for {Number}", nameof(AuthenticationController), nameof(SignIn), credentials.Number);
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = "An error occurred during sign-in" });
         }
+    #endregion Actions   
     }
 }
