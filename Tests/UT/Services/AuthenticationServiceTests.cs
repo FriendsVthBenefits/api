@@ -48,7 +48,7 @@ public sealed class AuthenticationServiceTests
         repository.Setup(s => s.UserExistAsync(signInRequestDTO)).ReturnsAsync(user);
 
         // Act
-        var response = Service.LoginAsync(signInRequestDTO);
+        var response = service.LoginAsync(signInRequestDTO);
 
         // Assert
         Assert.That(response, Is.Null);
@@ -86,7 +86,7 @@ public sealed class AuthenticationServiceTests
         repository.Setup(s => s.UserExistAsync(signInRequestDTO)).ReturnsAsync(user);
 
         // Act
-        var response = Service.LoginAsync(signInRequestDTO);
+        var response = service.LoginAsync(signInRequestDTO);
 
         // Assert
         Assert.Multiple(() => {
