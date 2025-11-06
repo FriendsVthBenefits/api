@@ -1,0 +1,19 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/universal:2",
+    "features": {
+        "ghcr.io/devcontainers/features/dotnet": {
+            "version": "9.0"
+        }
+    },
+    "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-dotnettools.csharp",
+                "ms-dotnettools.csdevkit"
+            ]
+        }
+    }
+}
