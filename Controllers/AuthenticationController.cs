@@ -31,7 +31,7 @@ public class AuthenticationController(ILogger<AuthenticationController> logger, 
     /// Handles user sign-in requests.
     /// Validates the model, attempts sigmim and returns appropriate result.
     /// </summary>
-    /// <param name="credentials">User data transfer object containing signin details</param>
+    /// <param name="credentials">credentials containing signin details</param>
     /// <returns>User profile if successful; error message if failed.</returns>
     /// <exception cref="Exception">Throws any exception encountered during service call.</exception>
     [HttpPost("signin")]
@@ -49,12 +49,12 @@ public class AuthenticationController(ILogger<AuthenticationController> logger, 
                 return BadRequest(ModelState);
             }
 
-            UserResponseDTO? response = await _service.LoginAsync(credentials);
+            UserResponseDTO? userResponseDTO = await _service.LoginAsync(credentials);
 
-            if (response != null)
+            if (userResponseDTO != null)
             {
                 _logger.LogInformation("{Controller} : {Method} - User {Number} logged in successfully", nameof(AuthenticationController), nameof(SignIn), credentials.Number);
-                return Accepted(new { message = "Login successful", user = response });
+                return Accepted(new { message = "Login successful", user = userResponseDTO });
             }
 
             _logger.LogWarning("{Controller} : {Method} - Failed login attempt for {Number}", nameof(AuthenticationController), nameof(SignIn), credentials.Number);
