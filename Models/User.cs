@@ -27,7 +27,7 @@ public partial class User
     public long Number { get; set; }
 
     /// <summary>
-    /// The user's email address (used for communication).
+    /// The user's email address.
     /// </summary>
     public string Mail { get; set; } = null!;
 
@@ -37,22 +37,22 @@ public partial class User
     public string Password { get; set; } = null!;
 
     /// <summary>
-    /// Gender of the user (use encoded values, e.g., 1=Male, 0=Female).
+    /// Gender of the user.
     /// </summary>
     public decimal Gender { get; set; }
 
     /// <summary>
-    /// Date of birth (stored as decimal timestamp).
+    /// Date of birth.
     /// </summary>
     public decimal Dob { get; set; }
 
     /// <summary>
-    /// Location or address of the user.
+    /// Location of the user.
     /// </summary>
     public string Location { get; set; } = null!;
 
     /// <summary>
-    /// Profile picture stored as byte array.
+    /// Profile picture.
     /// </summary>
     public byte[] Pic { get; set; } = null!;
 
@@ -62,7 +62,7 @@ public partial class User
     public string? Bio { get; set; }
 
     /// <summary>
-    /// User interests or hobbies (comma-separated string).
+    /// User interests or hobbies.
     /// </summary>
     public string? Interests { get; set; }
 
@@ -82,12 +82,12 @@ public partial class User
     public decimal? UpdatedAt { get; set; }
 
     /// <summary>
-    /// Indicates if the user account is active (1=active, 0=inactive).
+    /// Indicates if the user account is active.
     /// </summary>
     public decimal? IsActive { get; set; }
 
     /// <summary>
-    /// Role value for the user (e.g., 1=User, 0=Admin).
+    /// Role value for the user.
     /// </summary>
     public decimal? Role { get; set; }
 }

@@ -21,22 +21,22 @@ public class UserResponseDTO
     public long Number { get; set; }
 
     /// <summary>
-    /// The user's email address (used for communication).
+    /// The user's email address.
     /// </summary>
     public string Mail { get; set; } = null!;
 
     /// <summary>
-    /// Gender of the user (use encoded values, e.g., 1=Male, 0=Female).
+    /// Gender of the user.
     /// </summary>
     public byte Gender { get; set; }
 
     /// <summary>
-    /// Date of birth (stored as decimal timestamp).
+    /// Date of birth.
     /// </summary>
     public DateTime Dob { get; set; }
 
     /// <summary>
-    /// Location or address of the user.
+    /// Location of the user.
     /// </summary>
     public string Location { get; set; } = null!;
 
@@ -51,7 +51,7 @@ public class UserResponseDTO
     public string? Bio { get; set; }
 
     /// <summary>
-    /// User interests or hobbies (comma-separated string).
+    /// User interests or hobbies.
     /// </summary>
     public string? Interests { get; set; }
 
@@ -66,7 +66,7 @@ public class UserResponseDTO
     public DateTime CreatedAt { get; set; }
 
     /// <summary>
-    /// Indicates if the user account is active (1=active, 0=inactive).
+    /// Indicates if the user account is active.
     /// </summary>
     public byte IsActive { get; set; }
 }

@@ -4,7 +4,7 @@ using api.Models;
 namespace api.Interfaces;
 
 /// <summary>
-/// Interface defining repository methods for authentication lookup and validation.
+/// Interface defining repository methods for authentication lookup.
 /// </summary>
 public interface IAuthenticationRepository
 {
