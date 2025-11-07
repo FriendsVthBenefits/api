@@ -1,3 +1,10 @@
+using api.Data;
+using api.DTOs.Requests;
+using api.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
+
 namespace UT.Repositories;
 
 /// <summary>
@@ -12,6 +19,11 @@ public sealed class AuthenticationRepositoryTests
     private readonly Mock<ILogger<AuthenticationRepository>> logger = new();
 
     /// <summary>
+    /// DbContext instance configured for in-memory testing.
+    /// </summary>
+    private readonly DBContext context;
+
+    /// <summary>
     /// Sets up the AuthenticationRepository instance with mocked dependencies for isolated testing.​
     /// </summary>
     private readonly AuthenticationRepository repository;
@@ -20,38 +32,19 @@ public sealed class AuthenticationRepositoryTests
     /// <summary>
     /// Constructs the test service using previously initialized mock repository and logger.
     /// </summary>
-    public AuthenticationServiceTests()
+    public AuthenticationRepositoryTests()
     {
-        var options = new DbContextOptionsBuilder<YourDbContext>().UseInMemoryDatabase(databaseName: "TestDb").Options;
-        using var context = new YourDbContext(options);
-        /* context.Users.AddRange(
-            new User()
-            {
-                Id = 0,
-                Name = "SRNP",
-                Number = 8428558275,
-                Mail = "naren000000000@gmail.com",
-                Gender = 1,
-                Dob = 1741710312,
-                Location = "Asia",
-                ProfilePictureUrl = null,
-                Bio = null,
-                Interests = null,
-                LastLogin = 1741710312,
-                CreatedAt = 1741710312,
-                IsActive = 1
-            }
-        ); */
-        context.SaveChanges();
+        var options = new DbContextOptionsBuilder<DBContext>().UseInMemoryDatabase(databaseName: "TestDb").Options;
+        context = new DBContext(options);
         repository = new(logger.Object, context);
     }
-    
+
     #region Tests
     /// <summary>
     /// Verifies that invalid credentials provided to user exist async yield an null response.​
     /// </summary>
     [Test]
-    public void UserExistAsync_InValidCredentials_ReturnsNull()
+    public async Task UserExistAsync_InValidCredentials_ReturnsNull()
     {
         // Arrange
         SignInRequestDTO signInRequestDTO = new()
@@ -60,14 +53,17 @@ public sealed class AuthenticationRepositoryTests
             Password = "8428$s827S"
         };
 
-        User? user = null;
-        context.Setup(s => s.UserExistAsync(signInRequestDTO)).ReturnsAsync(user);
-
         // Act
-        var response = repository.LoginAsync(signInRequestDTO);
+        var response = await repository.UserExistAsync(signInRequestDTO);
 
         // Assert
         Assert.That(response, Is.Null);
     }
     #endregion Tests
+
+    /// <summary>
+    /// Cleanup method to dispose context after tests.
+    /// </summary>
+    [OneTimeTearDown]
+    public async Task CleanUp() => await context.DisposeAsync();
 }
