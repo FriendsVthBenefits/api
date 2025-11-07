@@ -1,3 +1,11 @@
+using api.DTOs.Requests;
+using api.DTOs.Responses;
+using api.Interfaces;
+using api.Models;
+using api.Services;
+using Microsoft.Extensions.Logging;
+using Moq;
+
 namespace UT.Services;
 
 /// <summary>
@@ -51,7 +59,7 @@ public sealed class AuthenticationServiceTests
         var response = service.LoginAsync(signInRequestDTO);
 
         // Assert
-        Assert.That(response, Is.Null);
+        Assert.That(response.Result, Is.Null);
     }
 
     /// <summary>
@@ -76,7 +84,6 @@ public sealed class AuthenticationServiceTests
             Gender = 1,
             Dob = 1741710312,
             Location = "Asia",
-            ProfilePictureUrl = null,
             Bio = null,
             Interests = null,
             LastLogin = 1741710312,
@@ -90,9 +97,10 @@ public sealed class AuthenticationServiceTests
 
         // Assert
         Assert.Multiple(() => {
-            Assert.That(response, Is.Not.Null);
-            Assert.That(response, Is.InstanceOf<UserResponseDTO>());
-            Assert.That(response.Number, Is.EqualsTo(user.Number));
+            UserResponseDTO result = response.Result!;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.InstanceOf<UserResponseDTO>());
+            Assert.That(result!.Number, Is.EqualTo(user.Number));
         });
     }
     #endregion Tests
