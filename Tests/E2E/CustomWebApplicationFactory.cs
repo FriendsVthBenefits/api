@@ -25,7 +25,7 @@ public class CustomWebApplicationFactory<TEntryPoint> : WebApplicationFactory<TE
         {
             var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<DBContext>));
             if (descriptor != null) services.Remove(descriptor);
-            services.AddDbContext<DBContext>(options => options.UseInMemoryDatabase("TestDb"));
+            services.AddDbContext<DBContext>(options => options.UseInMemoryDatabase("TestDB"));
             var sp = services.BuildServiceProvider();
             using var scope = sp.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<DBContext>();

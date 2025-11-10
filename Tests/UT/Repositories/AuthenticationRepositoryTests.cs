@@ -34,7 +34,7 @@ public sealed class AuthenticationRepositoryTests
     /// </summary>
     public AuthenticationRepositoryTests()
     {
-        var options = new DbContextOptionsBuilder<DBContext>().UseInMemoryDatabase(databaseName: "TestDb").Options;
+        var options = new DbContextOptionsBuilder<DBContext>().UseInMemoryDatabase(databaseName: "TestDB").Options;
         context = new DBContext(options);
         repository = new(logger.Object, context);
     }
