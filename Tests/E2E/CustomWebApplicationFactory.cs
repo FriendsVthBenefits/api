@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using api.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace E2E;
 
@@ -14,9 +15,15 @@ public class CustomWebApplicationFactory<TEntryPoint> : WebApplicationFactory<TE
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        builder.ConfigureAppConfiguration((context, config) =>
+        {
+            config.Sources.Clear();
+            config.AddJsonFile("appsettings.Staging.json");
+        });
+
         builder.ConfigureServices(services =>
         {
-            var descriptor = services.SingleOrDefault( d => d.ServiceType == typeof(DbContextOptions<DBContext>));
+            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<DBContext>));
             if (descriptor != null) services.Remove(descriptor);
             services.AddDbContext<DBContext>(options => options.UseInMemoryDatabase("TestDb"));
             var sp = services.BuildServiceProvider();
@@ -50,12 +57,12 @@ public class CustomWebApplicationFactory<TEntryPoint> : WebApplicationFactory<TE
 [SetUpFixture]
 public class TestAssemblySetup
 {
-    public static CustomWebApplicationFactory<Program> Factory { get; private set; } = null!;
+    public static WebApplicationFactory<Program> Factory { get; private set; } = null!;
 
     [OneTimeSetUp]
     public static void GlobalSetup()
     {
-        Factory = new CustomWebApplicationFactory<Program>();
+        Factory = new CustomWebApplicationFactory<Program>().WithWebHostBuilder(builder => builder.UseEnvironment("Staging"));
     }
 
     [OneTimeTearDown]
