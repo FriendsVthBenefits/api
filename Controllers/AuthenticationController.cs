@@ -39,7 +39,7 @@ public class AuthenticationController(ILogger<AuthenticationController> logger, 
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> SignIn([FromForm] SignInRequestDTO credentials)
+    public async Task<IActionResult> SignInAsync([FromForm] SignInRequestDTO credentials)
     {
         try
         {

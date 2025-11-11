@@ -16,21 +16,21 @@ Task("Clean")
   .Does(() =>
 {
   CleanDirectory("./artifacts");
-  DotNetClean("./MySolution.sln");
+  DotNetClean("./api.sln");
 });
 
 Task("Restore")
   .IsDependentOn("Clean")
   .Does(() =>
 {
-  DotNetRestore("./MySolution.sln");
+  DotNetRestore("./api.sln");
 });
 
 Task("Build")
   .IsDependentOn("Restore")
   .Does(() =>
 {
-  DotNetBuild("./MySolution.sln", new DotNetBuildSettings {
+  DotNetBuild("./api.sln", new DotNetBuildSettings {
     Configuration = "Release"
   });
 });
@@ -56,7 +56,7 @@ Task("Package")
   .IsDependentOn("Test")
   .Does(() =>
 {
-  DotNetPublish("./Api/Api.csproj", new DotNetPublishSettings {
+  DotNetPublish("./Api/api.csproj", new DotNetPublishSettings {
     Configuration = "Release",
     OutputDirectory = "./artifacts/publish"
   });

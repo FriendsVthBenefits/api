@@ -43,7 +43,7 @@ public sealed class AuthenticationServiceTests
     /// Verifies that invalid credentials provided to Login yield an null response.​
     /// </summary>
     [Test]
-    public void Login_InValidCredentials_ReturnsNull()
+    public async Task Login_InValidCredentials_ReturnsNull()
     {
         // Arrange
         SignInRequestDTO signInRequestDTO = new()
@@ -56,17 +56,17 @@ public sealed class AuthenticationServiceTests
         repository.Setup(s => s.UserExistAsync(signInRequestDTO)).ReturnsAsync(user);
 
         // Act
-        var response = service.LoginAsync(signInRequestDTO);
+        var response = await service.LoginAsync(signInRequestDTO);
 
         // Assert
-        Assert.That(response.Result, Is.Null);
+        Assert.That(response, Is.Null);
     }
 
     /// <summary>
     /// Verifies that valid credentials provided to Login yield an user dto response.​
     /// </summary>
     [Test]
-    public void Login_ValidCredentials_ReturnsUserResponseDTO()
+    public async Task Login_ValidCredentials_ReturnsUserResponseDTO()
     {
         // Arrange
         SignInRequestDTO signInRequestDTO = new()
@@ -93,14 +93,13 @@ public sealed class AuthenticationServiceTests
         repository.Setup(s => s.UserExistAsync(signInRequestDTO)).ReturnsAsync(user);
 
         // Act
-        var response = service.LoginAsync(signInRequestDTO);
+        var response = await service.LoginAsync(signInRequestDTO);
 
         // Assert
         Assert.Multiple(() => {
-            UserResponseDTO result = response.Result!;
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Is.InstanceOf<UserResponseDTO>());
-            Assert.That(result!.Number, Is.EqualTo(user.Number));
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response, Is.InstanceOf<UserResponseDTO>());
+            Assert.That(response!.Number, Is.EqualTo(user.Number));
         });
     }
     #endregion Tests
