@@ -18,17 +18,17 @@ public class AuthenticationServiceTests
     /// <summary>
     /// In-memory database context for test isolation.
     /// </summary>
-    private DBContext _context;
+    private DBContext context;
 
     /// <summary>
     /// Repository used to interact with authentication data in tests.
     /// </summary>
-    private AuthenticationRepository _repository;
+    private AuthenticationRepository repository;
 
     /// <summary>
     /// Authentication service instance under test.
     /// </summary>
-    private AuthenticationService _service;
+    private AuthenticationService service;
 
     /// <summary>
     /// Initializes the in-memory test database and required dependencies before each test run.
@@ -37,8 +37,8 @@ public class AuthenticationServiceTests
     public void Setup()
     {
         var options = new DbContextOptionsBuilder<DBContext>().UseInMemoryDatabase("TestDB").Options;
-        _context = new DBContext(options);
-        _context.Users.Add(new User()
+        context = new DBContext(options);
+        context.Users.Add(new User()
         {
             Id = 1,
             Name = "SRNP",
@@ -57,11 +57,11 @@ public class AuthenticationServiceTests
             UpdatedAt = 1762620187,
             LastLogin = 1762620187
         });
-        _context.SaveChanges();
+        context.SaveChanges();
         var repositoryLogger = LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<AuthenticationRepository>();
         var serviceLogger = LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<AuthenticationService>();
-        _repository = new AuthenticationRepository(repositoryLogger, _context);
-        _service = new AuthenticationService(serviceLogger, _repository);
+        repository = new AuthenticationRepository(repositoryLogger, context);
+        service = new AuthenticationService(serviceLogger, repository);
     }
 
     /// <summary>
@@ -70,8 +70,8 @@ public class AuthenticationServiceTests
     [TearDown]
     public void TearDown()
     {
-        _context.Database.EnsureDeleted();
-        _context.Dispose();
+        context.Database.EnsureDeleted();
+        context.Dispose();
     }
 
     /// <summary>
@@ -88,7 +88,7 @@ public class AuthenticationServiceTests
         };
 
         // Act
-        var result = await _service.LoginAsync(request);
+        var result = await service.LoginAsync(request);
 
         // Assert
         Assert.That(result, Is.Not.Null);
@@ -110,7 +110,7 @@ public class AuthenticationServiceTests
         };
 
         // Act
-        var result = await _service.LoginAsync(request);
+        var result = await service.LoginAsync(request);
 
         // Assert
         Assert.That(result, Is.Null);
