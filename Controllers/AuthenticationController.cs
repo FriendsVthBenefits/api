@@ -29,7 +29,6 @@ public class AuthenticationController(ILogger<AuthenticationController> logger, 
     #region Actions
     /// <summary>
     /// Handles user sign-in requests.
-    /// Validates the model, attempts sigmim and returns appropriate result.
     /// </summary>
     /// <param name="credentials">credentials containing signin details</param>
     /// <returns>User profile if successful; error message if failed.</returns>

@@ -16,7 +16,7 @@ public class UserResponseDTO
     public required string Name { get; set; }
 
     /// <summary>
-    /// The user's mobile number (intended for Indian numbers with +91 code).
+    /// The user's mobile number.
     /// </summary>
     public long Number { get; set; }
 

@@ -22,7 +22,7 @@ public sealed class AuthenticationServiceTests
     /// <summary>
     /// Declares and initializes mock objects for IAuthenticationRepository used within authentication service tests.
     /// </summary>
-    private readonly Mock<IAuthenticationRepository> repository = new();
+    private readonly Mock<IAuthenticationRepository> repository = new(MockBehavior.Strict);
 
     /// <summary>
     /// Sets up the AuthenticationService instance with mocked dependencies for isolated testing.​
@@ -53,7 +53,7 @@ public sealed class AuthenticationServiceTests
         };
 
         User? user = null;
-        repository.Setup(s => s.UserExistAsync(signInRequestDTO)).ReturnsAsync(user);
+        repository.Setup(r => r.UserExistAsync(signInRequestDTO)).ReturnsAsync(user);
 
         // Act
         var response = await service.LoginAsync(signInRequestDTO);
@@ -90,7 +90,7 @@ public sealed class AuthenticationServiceTests
             CreatedAt = 1741710312,
             IsActive = 1
         };
-        repository.Setup(s => s.UserExistAsync(signInRequestDTO)).ReturnsAsync(user);
+        repository.Setup(r => r.UserExistAsync(signInRequestDTO)).ReturnsAsync(user);
 
         // Act
         var response = await service.LoginAsync(signInRequestDTO);

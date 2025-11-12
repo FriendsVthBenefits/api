@@ -4,7 +4,6 @@ namespace api.DTOs.Requests;
 
 /// <summary>
 /// Data Transfer Object for user authentication signin requests.
-/// Validates user credentials with enhanced security constraints.
 /// </summary>
 public class SignInRequestDTO
 {
