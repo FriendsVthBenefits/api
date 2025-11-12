@@ -26,7 +26,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builder.Configuration["ElasticConfiguration:Uri"]!))
     {
         AutoRegisterTemplate = true,
-        IndexFormat = "apilogs-{0:yyyy.MM.dd}" // separate index per day
+        IndexFormat = "apilogs-{0:yyyy.MM.dd}"
     })
     .CreateLogger();
 

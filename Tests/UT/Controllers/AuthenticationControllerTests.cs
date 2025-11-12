@@ -24,7 +24,7 @@ public sealed class AuthenticationControllerTests
     /// <summary>
     /// Declares and initializes mock objects for IAuthenticationService used within authentication controller tests.
     /// </summary>
-    private readonly Mock<IAuthenticationService> service = new();
+    private readonly Mock<IAuthenticationService> service = new(MockBehavior.Strict);
 
     /// <summary>
     /// Sets up the AuthenticationController instance with mocked dependencies for isolated testing.​
@@ -45,7 +45,7 @@ public sealed class AuthenticationControllerTests
     /// <summary>
     /// Verifies that valid credentials provided to SignIn yield an Accepted (202) response and a structured UserResponseDTO result.​
     /// </summary>
-    [Test]
+    [Test, Order(2)]
     public async Task SignInAsync_ValidCredentials_ReturnsAccepted()
     {
         // Arrange
@@ -80,6 +80,7 @@ public sealed class AuthenticationControllerTests
         // Assert
         Assert.Multiple(() =>
         {
+            Assert.That(response, Is.Not.Null);
             dynamic value = response!.Value!;
             var message = value.GetType().GetProperty("message")?.GetValue(value, null)?.ToString();
             var user = value.GetType().GetProperty("user")?.GetValue(value, null);
@@ -93,14 +94,14 @@ public sealed class AuthenticationControllerTests
     /// <summary>
     /// Ensures that invalid login attempts return an Unauthorized (401) response with an accurate error message.​
     /// </summary>
-    [Test]
+    [Test, Order(1)]
     public async Task SignInAsync_InValidCredentials_ReturnsUnAuthorized()
     {
         // Arrange
         SignInRequestDTO signInRequestDTO = new()
         {
-            Number = 5428558278,
-            Password = "8428$s827S"
+            Number = 9876543210,
+            Password = "Test@1234"
         };
 
         UserResponseDTO? userResponseDTO = null;
@@ -108,10 +109,10 @@ public sealed class AuthenticationControllerTests
 
         // Act
         var response = await controller.SignInAsync(signInRequestDTO) as UnauthorizedObjectResult;
-
         // Assert
         Assert.Multiple(() =>
         {
+            Assert.That(response, Is.Not.Null);
             dynamic value = response!.Value!;
             var message = value.GetType().GetProperty("message")?.GetValue(value, null)?.ToString();
             Assert.That(message, Is.EqualTo("Invalid number or password"));
@@ -122,14 +123,14 @@ public sealed class AuthenticationControllerTests
     /// <summary>
     /// Checks that a failed validation triggers a Bad Request (400) response, confirming the controller properly validates request input.​
     /// </summary>
-    [Test]
+    [Test, Order(3)]
     public async Task SignInAsync_InValidCredentials_ReturnsBadRequest()
     {
         // Arrange
         SignInRequestDTO signInRequestDTO = new()
         {
-            Number = 012345678,
-            Password = string.Empty
+            Number = 12345,
+            Password = "password"
         };
 
         var validationContext = new ValidationContext(signInRequestDTO);
