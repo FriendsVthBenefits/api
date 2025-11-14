@@ -4,13 +4,11 @@ namespace api.DTOs.Requests;
 
 /// <summary>
 /// Data Transfer Object for user authentication signin requests.
-/// Validates user credentials with enhanced security constraints.
 /// </summary>
 public class SignInRequestDTO
 {
     /// <summary>
     /// Gets or sets the user's mobile number.
-    /// Must be a valid 10-digit Indian phone number (1000000000 to 9999999999).
     /// </summary>
     [Required(ErrorMessage = "Mobile number is required.")]
     [Range(1000000000, 9999999999, ErrorMessage = "Mobile number must be a valid 10-digit number.")]
@@ -19,7 +17,6 @@ public class SignInRequestDTO
 
     /// <summary>
     /// Gets or sets the user's password.
-    /// Must be 8-100 characters and contain at least one uppercase, lowercase, digit, and special character.
     /// </summary>
     [Required(ErrorMessage = "Password is required.")]
     [StringLength(100, MinimumLength = 8, ErrorMessage = "Password must be between 8 and 100 characters.")]

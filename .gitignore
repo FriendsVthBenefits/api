@@ -155,7 +155,7 @@ tramp
 *.suo
 *.ntvs*
 *.njsproj
-# *.sln
+*.sln
 *.sw?
 *.user
 *.userosscache

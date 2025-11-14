@@ -37,12 +37,12 @@ public class AuthenticationRepository(ILogger<AuthenticationRepository> logger, 
         try
         {
             User? user = await _context.Users.FirstOrDefaultAsync(u => u.Number == credentials.Number && u.Password == credentials.Password);
-            _logger.LogInformation($"{nameof(AuthenticationRepository)} : {nameof(UserExistAsync)}");
+            _logger.LogInformation("{repository}: {Method} found user: {user}", nameof(AuthenticationRepository), nameof(UserExistAsync), user);
             return user;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"{nameof(AuthenticationRepository)} : {nameof(UserExistAsync)}");
+            _logger.LogError(e, "{Repository}: Exception occurred in {Method} for Number={Number}", nameof(AuthenticationRepository), nameof(UserExistAsync), credentials.Number);
             throw;
         }
     }

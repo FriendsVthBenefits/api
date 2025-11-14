@@ -1,3 +1,11 @@
+using api.DTOs.Requests;
+using api.DTOs.Responses;
+using api.Interfaces;
+using api.Models;
+using api.Services;
+using Microsoft.Extensions.Logging;
+using Moq;
+
 namespace UT.Services;
 
 /// <summary>
@@ -14,7 +22,7 @@ public sealed class AuthenticationServiceTests
     /// <summary>
     /// Declares and initializes mock objects for IAuthenticationRepository used within authentication service tests.
     /// </summary>
-    private readonly Mock<IAuthenticationRepository> repository = new();
+    private readonly Mock<IAuthenticationRepository> repository = new(MockBehavior.Strict);
 
     /// <summary>
     /// Sets up the AuthenticationService instance with mocked dependencies for isolated testing.​
@@ -35,7 +43,7 @@ public sealed class AuthenticationServiceTests
     /// Verifies that invalid credentials provided to Login yield an null response.​
     /// </summary>
     [Test]
-    public void Login_InValidCredentials_ReturnsNull()
+    public async Task Login_InValidCredentials_ReturnsNull()
     {
         // Arrange
         SignInRequestDTO signInRequestDTO = new()
@@ -45,10 +53,10 @@ public sealed class AuthenticationServiceTests
         };
 
         User? user = null;
-        repository.Setup(s => s.UserExistAsync(signInRequestDTO)).ReturnsAsync(user);
+        repository.Setup(r => r.UserExistAsync(signInRequestDTO)).ReturnsAsync(user);
 
         // Act
-        var response = service.LoginAsync(signInRequestDTO);
+        var response = await service.LoginAsync(signInRequestDTO);
 
         // Assert
         Assert.That(response, Is.Null);
@@ -58,7 +66,7 @@ public sealed class AuthenticationServiceTests
     /// Verifies that valid credentials provided to Login yield an user dto response.​
     /// </summary>
     [Test]
-    public void Login_ValidCredentials_ReturnsUserResponseDTO()
+    public async Task Login_ValidCredentials_ReturnsUserResponseDTO()
     {
         // Arrange
         SignInRequestDTO signInRequestDTO = new()
@@ -76,23 +84,22 @@ public sealed class AuthenticationServiceTests
             Gender = 1,
             Dob = 1741710312,
             Location = "Asia",
-            ProfilePictureUrl = null,
             Bio = null,
             Interests = null,
             LastLogin = 1741710312,
             CreatedAt = 1741710312,
             IsActive = 1
         };
-        repository.Setup(s => s.UserExistAsync(signInRequestDTO)).ReturnsAsync(user);
+        repository.Setup(r => r.UserExistAsync(signInRequestDTO)).ReturnsAsync(user);
 
         // Act
-        var response = service.LoginAsync(signInRequestDTO);
+        var response = await service.LoginAsync(signInRequestDTO);
 
         // Assert
         Assert.Multiple(() => {
             Assert.That(response, Is.Not.Null);
             Assert.That(response, Is.InstanceOf<UserResponseDTO>());
-            Assert.That(response.Number, Is.EqualsTo(user.Number));
+            Assert.That(response!.Number, Is.EqualTo(user.Number));
         });
     }
     #endregion Tests

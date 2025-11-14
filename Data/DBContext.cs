@@ -4,8 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace api.Data;
 
 /// <summary>
-/// Responsible for managing entity sets, configuring the connection to the SQLite database,
-/// and mapping entity properties to database columns with constraints and defaults.
+/// Responsible for managing entity sets, configuring the connection to the SQLite database and mapping entity properties to database columns with constraints and defaults.
 /// </summary>
 public partial class DBContext : DbContext
 {
@@ -18,7 +17,6 @@ public partial class DBContext : DbContext
 
     /// <summary>
     /// Initializes a new instance of the DBContext class.
-    /// Sets up the database context with options such as database provider and connection string.
     /// </summary>
     /// <param name="options">DbContextOptions that specify configuration settings for the context.</param>
     public DBContext(DbContextOptions<DBContext> options)

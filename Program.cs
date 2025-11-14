@@ -18,7 +18,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
-builder.Services.AddDbContext<DBContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
+if(!builder.Environment.IsStaging()) builder.Services.AddDbContext<DBContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddStackExchangeRedisCache(options => options.Configuration = builder.Configuration.GetConnectionString("Redis"));
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
@@ -26,7 +26,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builder.Configuration["ElasticConfiguration:Uri"]!))
     {
         AutoRegisterTemplate = true,
-        IndexFormat = "apilogs-{0:yyyy.MM.dd}" // separate index per day
+        IndexFormat = "apilogs-{0:yyyy.MM.dd}"
     })
     .CreateLogger();
 
