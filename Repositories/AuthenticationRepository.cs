@@ -43,6 +43,7 @@ public class AuthenticationRepository(ILogger<AuthenticationRepository> logger, 
         catch (Exception e)
         {
             _logger.LogError(e, "{Repository}: Exception occurred in {Method} for Number={Number}", nameof(AuthenticationRepository), nameof(UserExistAsync), credentials.Number);
+            return null;
         }
     }
     #endregion Methods
