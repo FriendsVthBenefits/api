@@ -81,7 +81,7 @@ public class AuthenticationServiceTests
     public async Task LoginAsync_WithValidCredentials_ShouldReturnUser()
     {
         // Arrange
-        var request = new SignInRequestDTO()
+        var request = new SignInRequestDto()
         {
             Number = 8428558275,
             Password = "8428Ss827$"
@@ -92,7 +92,7 @@ public class AuthenticationServiceTests
 
         // Assert
         Assert.That(result, Is.Not.Null);
-        Assert.That(result, Is.InstanceOf<UserResponseDTO>());
+        Assert.That(result, Is.InstanceOf<UserResponseDto>());
         Assert.That(result.Number, Is.EqualTo(request.Number));
     }
 
@@ -103,7 +103,7 @@ public class AuthenticationServiceTests
     public async Task LoginAsync_WithInvalidCredentials_ShouldReturnNull()
     {
         // Arrange
-        var request = new SignInRequestDTO()
+        var request = new SignInRequestDto()
         {
             Number = 8428558276,
             Password = "8428S$827s"

@@ -3,7 +3,7 @@ namespace api.DTOs.Responses;
 /// <summary>
 /// Data Transfer Object containing user profile information for API responses.
 /// </summary>
-public class UserResponseDTO
+public class UserResponseDto
 {
     /// <summary>
     /// Primary key, uniquely identifies each user record.

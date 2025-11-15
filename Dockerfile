@@ -22,6 +22,8 @@ WORKDIR /src
 RUN dotnet publish -c Release -o /app/publish --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
+RUN useradd -m localuser
+USER localuser
 WORKDIR /app
 COPY --from=publish /app/publish ./
 EXPOSE 8080

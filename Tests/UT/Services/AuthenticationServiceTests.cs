@@ -46,7 +46,7 @@ public sealed class AuthenticationServiceTests
     public async Task Login_InValidCredentials_ReturnsNull()
     {
         // Arrange
-        SignInRequestDTO signInRequestDTO = new()
+        SignInRequestDto signInRequestDTO = new()
         {
             Number = 8428558270,
             Password = "8428$s827S"
@@ -69,7 +69,7 @@ public sealed class AuthenticationServiceTests
     public async Task Login_ValidCredentials_ReturnsUserResponseDTO()
     {
         // Arrange
-        SignInRequestDTO signInRequestDTO = new()
+        SignInRequestDto signInRequestDTO = new()
         {
             Number = 8428558270,
             Password = "8428$s827S"
@@ -98,7 +98,7 @@ public sealed class AuthenticationServiceTests
         // Assert
         Assert.Multiple(() => {
             Assert.That(response, Is.Not.Null);
-            Assert.That(response, Is.InstanceOf<UserResponseDTO>());
+            Assert.That(response, Is.InstanceOf<UserResponseDto>());
             Assert.That(response!.Number, Is.EqualTo(user.Number));
         });
     }

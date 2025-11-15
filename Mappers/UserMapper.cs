@@ -13,9 +13,9 @@ public static class UserMapper
     /// </summary>
     /// <param name="user">User entity from database.</param>
     /// <returns>UserResponseDTO for API response.</returns>
-    public static UserResponseDTO ToResponseDTO(this User user)
+    public static UserResponseDto ToResponseDTO(this User user)
     {
-        return new UserResponseDTO
+        return new UserResponseDto
         {
             Id = user.Id,
             Name = user.Name,

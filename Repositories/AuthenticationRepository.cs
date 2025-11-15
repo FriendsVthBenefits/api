@@ -32,18 +32,17 @@ public class AuthenticationRepository(ILogger<AuthenticationRepository> logger, 
     /// <param name="credentials">Login credentials.</param>
     /// <returns>User entity if found; null otherwise.</returns>
     /// <exception cref="Exception">Throws exception if any error occurs during data access.</exception>
-    public async Task<User?> UserExistAsync(SignInRequestDTO credentials)
+    public async Task<User?> UserExistAsync(SignInRequestDto credentials)
     {
         try
         {
             User? user = await _context.Users.FirstOrDefaultAsync(u => u.Number == credentials.Number && u.Password == credentials.Password);
-            _logger.LogInformation("{repository}: {Method} found user: {user}", nameof(AuthenticationRepository), nameof(UserExistAsync), user);
+            _logger.LogInformation("{Repository}: {Method} found user: {User}", nameof(AuthenticationRepository), nameof(UserExistAsync), user);
             return user;
         }
         catch (Exception e)
         {
             _logger.LogError(e, "{Repository}: Exception occurred in {Method} for Number={Number}", nameof(AuthenticationRepository), nameof(UserExistAsync), credentials.Number);
-            throw;
         }
     }
     #endregion Methods

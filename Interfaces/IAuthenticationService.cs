@@ -13,5 +13,5 @@ public interface IAuthenticationService
     /// </summary>
     /// <param name="credentials">Login credentials.</param>
     /// <returns>User profile if successful; null if failed.</returns>
-    Task<UserResponseDTO?> LoginAsync(SignInRequestDTO credentials);
+    Task<UserResponseDto?> LoginAsync(SignInRequestDto credentials);
 }

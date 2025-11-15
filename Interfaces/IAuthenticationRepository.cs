@@ -13,5 +13,5 @@ public interface IAuthenticationRepository
     /// </summary>
     /// <param name="credentials">Login credentials.</param>
     /// <returns>User entity if found; null otherwise.</returns>
-    Task<User?> UserExistAsync(SignInRequestDTO credentials);
+    Task<User?> UserExistAsync(SignInRequestDto credentials);
 }

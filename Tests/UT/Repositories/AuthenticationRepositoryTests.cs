@@ -47,7 +47,7 @@ public sealed class AuthenticationRepositoryTests
     public async Task UserExistAsync_InValidCredentials_ReturnsNull()
     {
         // Arrange
-        SignInRequestDTO signInRequestDTO = new()
+        SignInRequestDto signInRequestDTO = new()
         {
             Number = 8428558270,
             Password = "8428$s827S"

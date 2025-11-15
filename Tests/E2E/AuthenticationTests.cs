@@ -42,7 +42,7 @@ public class AuthenticationTests
     {
         //Arrange
         string requestUrl = string.Concat(requestUri, "/signin");
-        SignInRequestDTO signInRequestDTO = new()
+        SignInRequestDto signInRequestDTO = new()
         {
             Number = 8428558275,
             Password = "8428Ss827$"
@@ -72,7 +72,7 @@ public class AuthenticationTests
     {
         //Arrange
         string requestUrl = string.Concat(requestUri, "/signin");
-        SignInRequestDTO signInRequestDTO = new()
+        SignInRequestDto signInRequestDTO = new()
         {
             Number = 8428558276,
             Password = "8428S$827s"
