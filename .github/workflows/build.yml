@@ -15,7 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@8de0d3a920fc14c9fd99016aa630e01c1e932e4a
+        uses: docker/setup-buildx-action@v3
       - name: Build and test containers
         run: docker compose up --build -d
       - name: Tear down
