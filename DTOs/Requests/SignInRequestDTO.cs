@@ -5,7 +5,7 @@ namespace api.DTOs.Requests;
 /// <summary>
 /// Data Transfer Object for user authentication signin requests.
 /// </summary>
-public class SignInRequestDTO
+public class SignInRequestDto
 {
     /// <summary>
     /// Gets or sets the user's mobile number.

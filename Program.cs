@@ -48,6 +48,6 @@ app.UseAuthorization();
 // app.MapFallbackToFile("index.html");
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();
 
-public partial class Program { }
+public static partial class Program { }

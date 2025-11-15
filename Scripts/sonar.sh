@@ -5,7 +5,7 @@ echo "🔍 Starting SonarCloud analysis..."
 dotnet tool install --global dotnet-sonarscanner || true
 export PATH="$PATH:/root/.dotnet/tools"
 
-if [ -z "$SONAR_TOKEN" ]; then
+if [[ -z "$SONAR_TOKEN" ]]; then
   echo "❌ SONAR_TOKEN is not set. Exiting..."
   exit 1
 fi
@@ -13,12 +13,12 @@ fi
 SONAR_PROJECT_KEY=FWB_api
 SONAR_ORG=friendswithbenefits
 
-if [ -z "$SONAR_PROJECT_KEY" ]; then
+if [[ -z "$SONAR_PROJECT_KEY" ]]; then
   echo "❌ sonar.projectKey not found in sonar-project.properties"
   exit 1
 fi
 
-if [ -z "$SONAR_ORG" ]; then
+if [[ -z "$SONAR_ORG" ]]; then
   echo "❌ sonar.organization not found in sonar-project.properties"
   exit 1
 fi

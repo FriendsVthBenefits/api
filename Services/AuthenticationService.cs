@@ -32,7 +32,7 @@ public class AuthenticationService(ILogger<AuthenticationService> logger, IAuthe
     /// <param name="credentials">Login credentials.</param>
     /// <returns>User profile if successful; null if failed.</returns>
     /// <exception cref="Exception">Throws any exception encountered during repository call.</exception>
-    public async Task<UserResponseDTO?> LoginAsync(SignInRequestDTO credentials)
+    public async Task<UserResponseDto?> LoginAsync(SignInRequestDto credentials)
     {
         try
         {
@@ -44,14 +44,13 @@ public class AuthenticationService(ILogger<AuthenticationService> logger, IAuthe
                 return null;
             }
 
-            UserResponseDTO response = user.ToResponseDTO();
+            UserResponseDto response = user.ToResponseDTO();
             _logger.LogInformation("Login successful for {Number}", credentials.Number);
             return response;
         }
         catch (Exception e)
         {
             _logger.LogError(e, "Error during login for {Number}", credentials.Number);
-            throw;
         }
     }
     #endregion Methods

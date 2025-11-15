@@ -38,7 +38,7 @@ public class AuthenticationController(ILogger<AuthenticationController> logger, 
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> SignInAsync([FromForm] SignInRequestDTO credentials)
+    public async Task<IActionResult> SignInAsync([FromForm] SignInRequestDto credentials)
     {
         try
         {
@@ -48,7 +48,7 @@ public class AuthenticationController(ILogger<AuthenticationController> logger, 
                 return BadRequest(ModelState);
             }
 
-            UserResponseDTO? userResponseDTO = await _service.LoginAsync(credentials);
+            UserResponseDto? userResponseDTO = await _service.LoginAsync(credentials);
 
             if (userResponseDTO != null)
             {

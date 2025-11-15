@@ -1,0 +1,13 @@
+.git
+Dockerfile
+docker-compose.yml
+*.md
+obj
+bin
+*.db
+.vscode
+.env
+Schemas/
+LICENSE
+CHANGELOG
+*.cake

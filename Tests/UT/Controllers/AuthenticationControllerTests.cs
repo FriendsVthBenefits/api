@@ -49,13 +49,13 @@ public sealed class AuthenticationControllerTests
     public async Task SignInAsync_ValidCredentials_ReturnsAccepted()
     {
         // Arrange
-        SignInRequestDTO signInRequestDTO = new()
+        SignInRequestDto signInRequestDTO = new()
         {
             Number = 8428558275,
             Password = "8428Ss827$"
         };
 
-        UserResponseDTO userResponseDTO = new()
+        UserResponseDto userResponseDTO = new()
         {
             Id = 1,
             Name = "SRNP",
@@ -87,7 +87,7 @@ public sealed class AuthenticationControllerTests
             Assert.That(response, Is.Not.Null);
             Assert.That(message, Is.EqualTo("Login successful"));
             Assert.That(response.StatusCode, Is.EqualTo(StatusCodes.Status202Accepted));
-            Assert.That(user, Is.InstanceOf<UserResponseDTO>());
+            Assert.That(user, Is.InstanceOf<UserResponseDto>());
         });
     }
 
@@ -98,13 +98,13 @@ public sealed class AuthenticationControllerTests
     public async Task SignInAsync_InValidCredentials_ReturnsUnAuthorized()
     {
         // Arrange
-        SignInRequestDTO signInRequestDTO = new()
+        SignInRequestDto signInRequestDTO = new()
         {
             Number = 9876543210,
             Password = "Test@1234"
         };
 
-        UserResponseDTO? userResponseDTO = null;
+        UserResponseDto? userResponseDTO = null;
         service.Setup(s => s.LoginAsync(signInRequestDTO)).ReturnsAsync(userResponseDTO);
 
         // Act
@@ -127,7 +127,7 @@ public sealed class AuthenticationControllerTests
     public async Task SignInAsync_InValidCredentials_ReturnsBadRequest()
     {
         // Arrange
-        SignInRequestDTO signInRequestDTO = new()
+        SignInRequestDto signInRequestDTO = new()
         {
             Number = 12345,
             Password = "password"
