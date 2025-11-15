@@ -51,6 +51,7 @@ public class AuthenticationService(ILogger<AuthenticationService> logger, IAuthe
         catch (Exception e)
         {
             _logger.LogError(e, "Error during login for {Number}", credentials.Number);
+            return null;
         }
     }
     #endregion Methods
